@@ -1,0 +1,11 @@
+C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\bin\Debug\SimpleAlarm.exe.config
+C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\bin\Debug\SimpleAlarm.exe
+C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\bin\Debug\SimpleAlarm.pdb
+C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.csprojAssemblyReference.cache
+C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.SmartAlarm.resources
+C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.CustomMessageBox.resources
+C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.Properties.Resources.resources
+C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.csproj.GenerateResource.cache
+C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.csproj.CoreCompileInputs.cache
+C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.exe
+C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.pdb
