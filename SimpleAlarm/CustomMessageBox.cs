@@ -12,7 +12,6 @@ namespace SimpleAlarm
 {
     public partial class CustomMessageBox : Form
     {
-        String selectedButton;
         Random random = new Random();
         int answer;
         public CustomMessageBox()

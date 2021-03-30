@@ -22,12 +22,17 @@ namespace SimpleAlarm
     {
         private string targetDateTime;
         private string currentDateTime;
-        private SoundPlayer soundPlayer;
+        private string chosenWavFileName = "Default";
         private bool alarmStarted = false;
         private bool isSoundPlaying = false;
+        private SoundPlayer soundPlayer;
         private CancellationTokenSource cancellationTokenSource;
         private CustomMessageBox myMessageBox;
+        private AboutMe myAboutCard;
+        private AboutApp appAboutCard;
+        private Point currentFormCoordinate;
         private int alarmProcessCounter = 0;
+        private int soundDuration = 23449;
         private const int
             HTLEFT = 10,
             HTRIGHT = 11,
@@ -37,6 +42,8 @@ namespace SimpleAlarm
             HTBOTTOM = 15,
             HTBOTTOMLEFT = 16,
             HTBOTTOMRIGHT = 17;
+
+        Button[] buttons;
 
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -68,7 +75,8 @@ namespace SimpleAlarm
                 if (this.Size == Screen.PrimaryScreen.WorkingArea.Size)
                 {
                     this.Size = new Size(700, 440);
-                    this.CenterToScreen();
+                    //this.CenterToScreen();
+                    this.Location = currentFormCoordinate;
                 }
                 else
                 {
@@ -94,7 +102,7 @@ namespace SimpleAlarm
 
         private void simple_alarm_Load(object sender, EventArgs e)
         {
-            soundPlayer = new SoundPlayer("default_alarm.wav");
+            soundPlayer = new SoundPlayer("Default.wav");
             string time_now = DateTime.Now.ToLongTimeString();
             string date_now = DateTime.Now.ToLongDateString();
             target_time.Text = time_now;
@@ -103,9 +111,13 @@ namespace SimpleAlarm
 
             radioButton_specify_time.Checked = true;
             targetDateTime = $"{target_date.Text} {target_time.Text}";
-            this.MinimumSize = new Size(650, 310);
+            this.MinimumSize = new Size(650, 400);
             this.Size = new Size(750, 400);
-
+            list_music.SelectedIndex = 0;
+           buttons =  new Button[]
+                    {button_minimize,button_about,
+                    button_minimize_maximize,button_close};
+            currentFormCoordinate = this.Location;
         }
 
         private void CloseMessageBox()
@@ -141,23 +153,32 @@ namespace SimpleAlarm
             timer_target_time.Start();
         }
 
-        private void MessageBoxButtonStop_Click(object sender, EventArgs e)
+        private void StopProcess() 
         {
             StopAlarm();
+            CloseMessageBox();
+            //EnableForm();
+            ResetAlarmProcessCounter();
+            RestoreComponents();
+        }
+
+        private void MessageBoxButtonStop_Click(object sender, EventArgs e)
+        {
+            StopProcess();
         }
 
         bool ReachedCallCount => alarmProcessCounter == int.Parse(textBox_times.Text);
+        private bool FormMinimized => WindowState == FormWindowState.Minimized;
+        private bool FullSized => this.Size == Screen.PrimaryScreen.WorkingArea.Size;
+
+        private bool IsFormOnZeroZeroCoordinate => this.Location == new Point(0, 0);
 
         private void MessageBoxButtonSnooze_Click(object sender, EventArgs e)
         {
             alarmProcessCounter++;
             if (ReachedCallCount)
             {
-                StopAlarm();
-                CloseMessageBox();
-                EnableForm();
-                ResetAlarmProcessCounter();
-                RestoreComponents();
+                StopProcess();
             }
             else
             {
@@ -165,30 +186,62 @@ namespace SimpleAlarm
                 StopAlarmMusic();
                 targetDateTime = DateTime.Now.AddMinutes(double.Parse(textBox_snooze.Text)).ToString();
                 StartTargetTimer();
-                EnableForm();
+                //EnableForm();
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void DisableInputComponents()
         {
-            InitializeCustomMessageBox();
-            this.Enabled = false;
-            myMessageBox.Show();
-        }
-        private void InitializeInputComponents()
-        {
-            EnableFromNowComponents();
-            EnableSpecifyTimeComponents();
-            radioButton_from_now.Enabled = true;
-            radioButton_specify_time.Enabled = true;
-        }
-        private void ResetInputComponents()
-        {
+            DisableAdditionalComponents();
+            DisableTestAlarmMusicComponents();
             DisableFromNowComponents();
             DisableSpecifyTimeComponents();
             radioButton_from_now.Enabled = false;
             radioButton_specify_time.Enabled = false;
         }
+        private void EnableInputComponents()
+        {
+            EnableTestAlarmMusicComponents();
+            EnableAdditionalComponents();
+            EnableFromNowComponents();
+            EnableSpecifyTimeComponents();
+            radioButton_from_now.Enabled = true;
+            radioButton_specify_time.Enabled = true;
+        }
+        private void ChangeStatusTestAlarmMusicComponents(bool value)
+        {
+            list_music.Enabled = value;
+            button_play.Enabled = value;
+            button_stop.Enabled = value;
+        }
+        private void DisableTestAlarmMusicComponents()
+        {
+            ChangeStatusTestAlarmMusicComponents(false);
+        }
+        private void EnableTestAlarmMusicComponents()
+        {
+            ChangeStatusTestAlarmMusicComponents(true);
+        }
+
+        private void ChangeStatusAdditionalComponents(bool value)
+        {
+            label_call.Enabled = value;
+            label_snooze.Enabled = value;
+            textBox_times.Enabled = value;
+            textBox_snooze.Enabled = value;
+            label_call_time.Enabled = value;
+            label_call_minute.Enabled = value;
+        }
+
+        private void DisableAdditionalComponents()
+        {
+            ChangeStatusAdditionalComponents(false); 
+        }
+        private void EnableAdditionalComponents()
+        {
+            ChangeStatusAdditionalComponents(true);
+        }
+
 
         private void AlarmWithSpecifiedTime()
         {
@@ -205,18 +258,19 @@ namespace SimpleAlarm
             StartTargetTimer();
         }
 
-        private void ChangeColorAndTextStartAlarmButton()
+        private void ChangeStyleAlarmButton(string text, Color color)
         {
-            button_start_alarm.BackColor = Color.Red;
-            button_start_alarm.Text = "Stop alarm";
+            button_start_alarm.BackColor = color;
+            button_start_alarm.Text = text;
         }
 
         private void StartProcess()
         {
             alarmStarted = true;
-            
-            ResetInputComponents();
-            ChangeColorAndTextStartAlarmButton();
+
+
+            DisableInputComponents();
+            ChangeStyleAlarmButton("Stop alarm",Color.Red);
             if (radioButton_specify_time.Checked)
             {
                 AlarmWithSpecifiedTime();
@@ -228,11 +282,10 @@ namespace SimpleAlarm
         }
         private void RestoreComponents()
         {
-            StopAlarm();
             alarmStarted = false;
-            InitializeInputComponents();
-            button_start_alarm.BackColor = Color.FromArgb(98, 133, 138);
-            button_start_alarm.Text = "Start alarm";
+            EnableInputComponents();
+
+            ChangeStyleAlarmButton("Start alarm", Color.FromArgb(98, 133, 138));
             StopTargetTimer();
         }
 
@@ -251,7 +304,7 @@ namespace SimpleAlarm
                     for (int i = 0; i < loopCount; i++)
                     {
                         soundPlayer.Play();
-                        Thread.Sleep(23000);
+                        Thread.Sleep(soundDuration);
                         if (cancellationToken.IsCancellationRequested)
                             break;
                         if (!isSoundPlaying)
@@ -268,8 +321,11 @@ namespace SimpleAlarm
 
         private void StopAlarmMusic()
         {
-            cancellationTokenSource.Cancel();
-            cancellationTokenSource.Dispose();
+            if(cancellationTokenSource != null)
+            {
+                cancellationTokenSource.Cancel();
+                cancellationTokenSource.Dispose();
+            }
             soundPlayer.Stop();
             isSoundPlaying = false;
         }
@@ -282,8 +338,8 @@ namespace SimpleAlarm
                 PlayAlarmMusic(int.MaxValue);
 
                 InitializeCustomMessageBox();
-                myMessageBox.Show();
-                DisableForm();
+                myMessageBox.ShowDialog();
+                //DisableForm();
             }
 
         }
@@ -378,40 +434,131 @@ namespace SimpleAlarm
         }
 
 
-        const int _ = 10; 
+        const int recSize = 10; 
 
-        Rectangle _Top { get { return new Rectangle(0, 0, this.ClientSize.Width, _); } }
-        Rectangle _Left { get { return new Rectangle(0, 0, _, this.ClientSize.Height); } }
-        Rectangle _Bottom { get { return new Rectangle(0, this.ClientSize.Height - _, this.ClientSize.Width, _); } }
-        Rectangle _Right { get { return new Rectangle(this.ClientSize.Width - _, 0, _, this.ClientSize.Height); } }
+        Rectangle _Top { get { return new Rectangle(0, 0, this.ClientSize.Width, recSize); } }
+        Rectangle _Left { get { return new Rectangle(0, 0, recSize, this.ClientSize.Height); } }
+        Rectangle _Bottom { get { return new Rectangle(0, this.ClientSize.Height - recSize, this.ClientSize.Width, recSize); } }
+        Rectangle _Right { get { return new Rectangle(this.ClientSize.Width - recSize, 0, recSize, this.ClientSize.Height); } }
 
-        Rectangle _TopLeft { get { return new Rectangle(0, 0, _, _); } }
-        Rectangle _TopRight { get { return new Rectangle(this.ClientSize.Width - _, 0, _, _); } }
-        Rectangle _BottomLeft { get { return new Rectangle(0, this.ClientSize.Height - _, _, _); } }
-        Rectangle _BottomRight { get { return new Rectangle(this.ClientSize.Width - _, this.ClientSize.Height - _, _, _); } }
+        Rectangle _TopLeft { get { return new Rectangle(0, 0, recSize, recSize); } }
+        Rectangle _TopRight { get { return new Rectangle(this.ClientSize.Width - recSize, 0, recSize, recSize); } }
+        Rectangle _BottomLeft { get { return new Rectangle(0, this.ClientSize.Height - recSize, recSize, recSize); } }
+        Rectangle _BottomRight { get { return new Rectangle(this.ClientSize.Width - recSize, this.ClientSize.Height - recSize, recSize, recSize); } }
+
+
+        private void InitializeSoundPlayer(string wavFileName)
+        {
+            soundPlayer = new SoundPlayer($"{wavFileName}.wav");
+            this.soundDuration = SoundInfo.GetSoundLength($"{wavFileName}.wav");
+        }
+
+        private void ChooseAlarmMusic()
+        {
+            string name = list_music.Text;
+            chosenWavFileName = name;
+            InitializeSoundPlayer(name);
+        }
+        private void button_play_Click(object sender, EventArgs e)
+        {
+            soundPlayer.Stop();
+            if(!chosenWavFileName.Equals(list_music.Text))
+                ChooseAlarmMusic();
+            soundPlayer.Play();
+        }
+
+        private void button_stop_Click(object sender, EventArgs e)
+        {
+            soundPlayer.Stop();
+        }
+
+        private void SmartAlarm_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && e.Clicks == 1)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+
+            else if (e.Button == MouseButtons.Left && e.Clicks == 2)
+            {
+                if (this.Size == Screen.PrimaryScreen.WorkingArea.Size)
+                {
+                    this.Size = new Size(700, 440);
+                    //this.CenterToScreen();
+                    this.Location = currentFormCoordinate;
+                }
+                else
+                {
+                    this.Size = Screen.PrimaryScreen.WorkingArea.Size;
+                    this.Location = new Point(0, 0);
+                }
+            }
+        }
+
+        private void CreateAboutMeCard()
+        {
+            myAboutCard = new AboutMe();
+            myAboutCard.setMainFrame(this);
+        }
+        private void CreateAboutAppCard()
+        {
+            appAboutCard = new AboutApp();
+            appAboutCard.setMainFrame(this);
+        }
+
+
+        private void button_about_Click(object sender, EventArgs e)
+        {
+            CreateAboutMeCard();
+            myAboutCard.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            CreateAboutAppCard();
+            appAboutCard.ShowDialog();
+        }
+
+        private void ChangeButtonsLocation(Button[] buttons, int xPos, int yPos)
+        {
+            for(int i = 0; i < buttons.Length; i++)
+            {
+                int currX = buttons[i].Location.X;
+                int currY = buttons[i].Location.Y;
+                buttons[i].Location = new Point(currX + xPos, currY + yPos);
+            }
+        }
 
         private void button_minimize_maximize_Click(object sender, EventArgs e)
         {
-            if (this.Size == Screen.PrimaryScreen.WorkingArea.Size && this.Location == new Point(0, 0))
+
+            if (FullSized && IsFormOnZeroZeroCoordinate)
             {
                 this.Size = new Size(700, 440);
-                this.CenterToScreen();
+                //this.CenterToScreen();
+                this.Location = currentFormCoordinate;
+                ChangeButtonsLocation(buttons,-5,3);
             }
             else
             {
                 this.Size = Screen.PrimaryScreen.WorkingArea.Size;
                 this.Location = new Point(0, 0);
                 button_minimize_maximize.Image = SimpleAlarm.Properties.Resources.restore_down;
+                ChangeButtonsLocation(buttons, 5, -3);
+                Console.WriteLine(button_close.Location);
             }
         }
 
+
         private void simple_alarm_Resize(object sender, EventArgs e)
         {
-            if (this.Size == Screen.PrimaryScreen.WorkingArea.Size)
+            Console.WriteLine(this.Size);
+            if (FullSized)
             {
                 button_minimize_maximize.Image = SimpleAlarm.Properties.Resources.restore_down;
             }
-            else if(this.Location == new Point(0,0))
+            else if(IsFormOnZeroZeroCoordinate)
             {
                 button_minimize_maximize.Image = SimpleAlarm.Properties.Resources.maximize;
             }
@@ -419,14 +566,22 @@ namespace SimpleAlarm
 
         private void simple_alarm_Move(object sender, EventArgs e)
         {
-            if (this.Size == Screen.PrimaryScreen.WorkingArea.Size && this.Location != new Point(0,0))
+            if (FullSized && !IsFormOnZeroZeroCoordinate)
             {
                 button_minimize_maximize.Image = SimpleAlarm.Properties.Resources.maximize;
+                if(button_close.Location == new Point(1318,0))
+                    ChangeButtonsLocation(buttons, -5, 3);
+            }
+            else if(!FullSized && IsFormOnZeroZeroCoordinate && !FormMinimized|| 
+                    !FullSized && !IsFormOnZeroZeroCoordinate && !FormMinimized)
+            {
+                currentFormCoordinate = this.Location;
             }
         }
 
         private void button_start_alarm_Click(object sender, EventArgs e)
         {
+            soundPlayer.Stop();
             if (!alarmStarted)
             {
                 StartProcess();
@@ -440,7 +595,7 @@ namespace SimpleAlarm
         protected override void WndProc(ref Message message)
         {
             base.WndProc(ref message);
-            if (message.Msg == 0x84) // WM_NCHITTEST
+            if (message.Msg == 0x84)
             {
                 var cursor = this.PointToClient(Cursor.Position);
 
@@ -454,35 +609,6 @@ namespace SimpleAlarm
                 else if (_Right.Contains(cursor)) message.Result = (IntPtr)HTRIGHT;
                 else if (_Bottom.Contains(cursor)) message.Result = (IntPtr)HTBOTTOM;
             }
-        }
-
-        private void CursorInBorder(MouseEventArgs e)
-        {
-            if ((e.X <= 2 && e.Y <= 2) || (e.X + 2 >= this.Width && e.Y + 2 >= this.Height))
-            {
-                this.Cursor = Cursors.SizeNWSE;
-            }
-            else if ((e.X + 2 >= this.Width && e.Y <= 2) || (e.X <= 2 && e.Y + 2 >= this.Height))
-            {
-                this.Cursor = Cursors.SizeNESW;
-            }
-            else if (e.X <= 2 || e.X + 2 >= this.Width)
-            {
-                this.Cursor = Cursors.SizeWE;
-            }
-            else if (e.Y <= 2 || e.Y + 2 >= this.Height)
-            {
-                this.Cursor = Cursors.SizeNS;
-            }
-            else
-            {
-                this.Cursor = Cursors.Default;
-            }
-        }
-
-        private void simple_alarm_MouseMove(object sender, MouseEventArgs e)
-        {
-            CursorInBorder(e);
         }
 
     }

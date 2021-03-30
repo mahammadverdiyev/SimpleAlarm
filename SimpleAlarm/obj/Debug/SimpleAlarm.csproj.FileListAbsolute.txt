@@ -9,3 +9,5 @@ C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.csp
 C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.csproj.CoreCompileInputs.cache
 C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.exe
 C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.pdb
+C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.AboutApp.resources
+C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.AboutMe.resources

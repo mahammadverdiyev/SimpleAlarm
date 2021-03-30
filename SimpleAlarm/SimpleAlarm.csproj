@@ -47,6 +47,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutApp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutApp.Designer.cs">
+      <DependentUpon>AboutApp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AboutMe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutMe.Designer.cs">
+      <DependentUpon>AboutMe.cs</DependentUpon>
+    </Compile>
     <Compile Include="AlarmForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +73,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoundInfo.cs" />
+    <EmbeddedResource Include="AboutApp.resx">
+      <DependentUpon>AboutApp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AboutMe.resx">
+      <DependentUpon>AboutMe.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AlarmForm.resx">
       <DependentUpon>AlarmForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -124,6 +143,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="default_alarm.mp3" />
+    <None Include="Resources\alarm-clock.png" />
+    <None Include="Resources\stargazers.png" />
+    <None Include="Resources\facebook.png" />
+    <None Include="Resources\medium.png" />
+    <None Include="Resources\github.png" />
+    <None Include="Resources\info.png" />
     <None Include="Resources\close.png" />
     <None Include="Resources\maximizing.png" />
     <None Include="Resources\maximize.png" />
