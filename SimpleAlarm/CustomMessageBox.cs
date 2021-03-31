@@ -44,7 +44,6 @@ namespace SimpleAlarm
 
         private void CustomMessageBox_Load(object sender, EventArgs e)
         {
-            this.CenterToScreen();
             GenerateNumbers();
             CalculateAnswer();
             button_stop.Enabled = false;

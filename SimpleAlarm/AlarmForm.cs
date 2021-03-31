@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
-using System.Reflection;
-using System.IO;
-using System.Resources;
 using System.Media;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Drawing.Drawing2D;
 
 namespace SimpleAlarm
 {
@@ -32,7 +22,7 @@ namespace SimpleAlarm
         private AboutApp appAboutCard;
         private Point currentFormCoordinate;
         private int alarmProcessCounter = 0;
-        private int soundDuration = 23449;
+        private int soundDuration = 29023;
         private const int
             HTLEFT = 10,
             HTRIGHT = 11,
@@ -58,7 +48,6 @@ namespace SimpleAlarm
         public SmartAlarm()
         {
             InitializeComponent();
-            //this.SetStyle(ControlStyles.ResizeRedraw, true);
         }
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
@@ -75,7 +64,6 @@ namespace SimpleAlarm
                 if (this.Size == Screen.PrimaryScreen.WorkingArea.Size)
                 {
                     this.Size = new Size(700, 440);
-                    //this.CenterToScreen();
                     this.Location = currentFormCoordinate;
                 }
                 else
@@ -90,7 +78,7 @@ namespace SimpleAlarm
         private void InitializeCustomMessageBox()
         {
             string title = "Get up!";
-            string message = "It is time to get up mate, come on!";
+            string message = "It is time to get up mate, you'll be late!";
             myMessageBox = new CustomMessageBox();
             myMessageBox.button_stop.Click += MessageBoxButtonStop_Click;
             myMessageBox.button_snooze.Click += MessageBoxButtonSnooze_Click;
@@ -157,7 +145,6 @@ namespace SimpleAlarm
         {
             StopAlarm();
             CloseMessageBox();
-            //EnableForm();
             ResetAlarmProcessCounter();
             RestoreComponents();
         }
@@ -186,7 +173,6 @@ namespace SimpleAlarm
                 StopAlarmMusic();
                 targetDateTime = DateTime.Now.AddMinutes(double.Parse(textBox_snooze.Text)).ToString();
                 StartTargetTimer();
-                //EnableForm();
             }
         }
 
@@ -268,7 +254,7 @@ namespace SimpleAlarm
         {
             alarmStarted = true;
 
-
+            ChooseAlarmMusic();
             DisableInputComponents();
             ChangeStyleAlarmButton("Stop alarm",Color.Red);
             if (radioButton_specify_time.Checked)
@@ -339,7 +325,6 @@ namespace SimpleAlarm
 
                 InitializeCustomMessageBox();
                 myMessageBox.ShowDialog();
-                //DisableForm();
             }
 
         }
@@ -383,6 +368,10 @@ namespace SimpleAlarm
                 radioButton_from_now.Text = "From now";
                 EnableSpecifyTimeComponents();
                 DisableFromNowComponents();
+                label_header_hour.Visible = false;
+                label_header_minute.Visible = false;
+                label_header_message_minute.Visible = false;
+                label_header_message_left.Text = "The alarm will go off at ";
             }
         }
 
@@ -391,6 +380,12 @@ namespace SimpleAlarm
             radioButton_from_now.Text = $"From now ({DateTime.Now})";
             EnableFromNowComponents();
             DisableSpecifyTimeComponents();
+            label_header_hour.Visible = true;
+            label_header_minute.Visible = true;
+            label_header_message_minute.Visible = true;
+            label_header_message_left.Text = "The alarm will go off in ";
+            label_header_message_right.Text = from_now_hour.Text;
+            label_header_message_minute.Text = from_now_minute.Text;
         }
 
         private void radioButton_specify_time_MouseEnter(object sender, EventArgs e)
@@ -474,26 +469,26 @@ namespace SimpleAlarm
 
         private void SmartAlarm_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && e.Clicks == 1)
+            if (e.Button == MouseButtons.Left && e.Clicks == 1 && !FullSized)
             {
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
 
-            else if (e.Button == MouseButtons.Left && e.Clicks == 2)
-            {
-                if (this.Size == Screen.PrimaryScreen.WorkingArea.Size)
-                {
-                    this.Size = new Size(700, 440);
-                    //this.CenterToScreen();
-                    this.Location = currentFormCoordinate;
-                }
-                else
-                {
-                    this.Size = Screen.PrimaryScreen.WorkingArea.Size;
-                    this.Location = new Point(0, 0);
-                }
-            }
+            //else if (e.Button == MouseButtons.Left && e.Clicks == 2)
+            //{
+            //    if (this.Size == Screen.PrimaryScreen.WorkingArea.Size)
+            //    {
+            //        this.Size = new Size(700, 440);
+            //        //this.CenterToScreen();
+            //        this.Location = currentFormCoordinate;
+            //    }
+            //    else
+            //    {
+            //        this.Size = Screen.PrimaryScreen.WorkingArea.Size;
+            //        this.Location = new Point(0, 0);
+            //    }
+            //}
         }
 
         private void CreateAboutMeCard()
@@ -512,6 +507,19 @@ namespace SimpleAlarm
         {
             CreateAboutMeCard();
             myAboutCard.ShowDialog();
+        }
+
+
+        private void from_now_hour_ValueChanged(object sender, EventArgs e)
+        {
+            label_header_message_right.Text = from_now_hour.Text;
+            label_header_message_minute.Text = from_now_minute.Text;
+        }
+
+        private void from_now_minute_ValueChanged(object sender, EventArgs e)
+        {
+            label_header_message_right.Text = from_now_hour.Text;
+            label_header_message_minute.Text = from_now_minute.Text;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -536,15 +544,13 @@ namespace SimpleAlarm
             if (FullSized && IsFormOnZeroZeroCoordinate)
             {
                 this.Size = new Size(700, 440);
-                //this.CenterToScreen();
                 this.Location = currentFormCoordinate;
-                ChangeButtonsLocation(buttons,-5,3);
+                ChangeButtonsLocation(buttons, -5, 3);
             }
             else
             {
                 this.Size = Screen.PrimaryScreen.WorkingArea.Size;
                 this.Location = new Point(0, 0);
-                button_minimize_maximize.Image = SimpleAlarm.Properties.Resources.restore_down;
                 ChangeButtonsLocation(buttons, 5, -3);
                 Console.WriteLine(button_close.Location);
             }
@@ -553,13 +559,14 @@ namespace SimpleAlarm
 
         private void simple_alarm_Resize(object sender, EventArgs e)
         {
-            Console.WriteLine(this.Size);
             if (FullSized)
             {
+                Console.WriteLine("boyuldu");
                 button_minimize_maximize.Image = SimpleAlarm.Properties.Resources.restore_down;
             }
-            else if(IsFormOnZeroZeroCoordinate)
+            else if (IsFormOnZeroZeroCoordinate)
             {
+                Console.WriteLine("kicildi");
                 button_minimize_maximize.Image = SimpleAlarm.Properties.Resources.maximize;
             }
         }
@@ -614,4 +621,3 @@ namespace SimpleAlarm
     }
 
 }
-

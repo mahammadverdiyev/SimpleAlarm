@@ -67,6 +67,9 @@ namespace SimpleAlarm
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button_close = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.label_header_message_minute = new System.Windows.Forms.Label();
+            this.label_header_hour = new System.Windows.Forms.Label();
+            this.label_header_minute = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -136,7 +139,7 @@ namespace SimpleAlarm
             this.label_header_message_right.AutoSize = true;
             this.label_header_message_right.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_header_message_right.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(204)))), ((int)(((byte)(123)))));
-            this.label_header_message_right.Location = new System.Drawing.Point(175, 51);
+            this.label_header_message_right.Location = new System.Drawing.Point(164, 51);
             this.label_header_message_right.Name = "label_header_message_right";
             this.label_header_message_right.Size = new System.Drawing.Size(19, 24);
             this.label_header_message_right.TabIndex = 12;
@@ -200,6 +203,7 @@ namespace SimpleAlarm
             this.from_now_hour.Size = new System.Drawing.Size(65, 24);
             this.from_now_hour.TabIndex = 10;
             this.from_now_hour.Value = new System.DateTime(2021, 3, 28, 2, 0, 0, 0);
+            this.from_now_hour.ValueChanged += new System.EventHandler(this.from_now_hour_ValueChanged);
             // 
             // from_now_minute
             // 
@@ -214,6 +218,7 @@ namespace SimpleAlarm
             this.from_now_minute.Size = new System.Drawing.Size(53, 24);
             this.from_now_minute.TabIndex = 11;
             this.from_now_minute.Value = new System.DateTime(2021, 3, 28, 0, 0, 0, 0);
+            this.from_now_minute.ValueChanged += new System.EventHandler(this.from_now_minute_ValueChanged);
             // 
             // label_hour
             // 
@@ -389,7 +394,6 @@ namespace SimpleAlarm
             this.list_music.FormattingEnabled = true;
             this.list_music.Items.AddRange(new object[] {
             "Default",
-            "Morning Alarm",
             "Soft Alarm 1",
             "Soft Alarm 2",
             "Soft Alarm 3"});
@@ -527,12 +531,51 @@ namespace SimpleAlarm
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label_header_message_minute
+            // 
+            this.label_header_message_minute.AutoSize = true;
+            this.label_header_message_minute.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_header_message_minute.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(204)))), ((int)(((byte)(123)))));
+            this.label_header_message_minute.Location = new System.Drawing.Point(273, 51);
+            this.label_header_message_minute.Name = "label_header_message_minute";
+            this.label_header_message_minute.Size = new System.Drawing.Size(19, 24);
+            this.label_header_message_minute.TabIndex = 29;
+            this.label_header_message_minute.Text = "s";
+            this.label_header_message_minute.Visible = false;
+            // 
+            // label_header_hour
+            // 
+            this.label_header_hour.AutoSize = true;
+            this.label_header_hour.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_header_hour.ForeColor = System.Drawing.Color.White;
+            this.label_header_hour.Location = new System.Drawing.Point(189, 57);
+            this.label_header_hour.Name = "label_header_hour";
+            this.label_header_hour.Size = new System.Drawing.Size(78, 16);
+            this.label_header_hour.TabIndex = 30;
+            this.label_header_hour.Text = "hour(s) and ";
+            this.label_header_hour.Visible = false;
+            // 
+            // label_header_minute
+            // 
+            this.label_header_minute.AutoSize = true;
+            this.label_header_minute.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_header_minute.ForeColor = System.Drawing.Color.White;
+            this.label_header_minute.Location = new System.Drawing.Point(305, 57);
+            this.label_header_minute.Name = "label_header_minute";
+            this.label_header_minute.Size = new System.Drawing.Size(65, 16);
+            this.label_header_minute.TabIndex = 31;
+            this.label_header_minute.Text = "minute(s).";
+            this.label_header_minute.Visible = false;
+            // 
             // SmartAlarm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(89)))), ((int)(((byte)(71)))));
             this.ClientSize = new System.Drawing.Size(700, 440);
+            this.Controls.Add(this.label_header_minute);
+            this.Controls.Add(this.label_header_hour);
+            this.Controls.Add(this.label_header_message_minute);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button_about);
             this.Controls.Add(this.panel3);
@@ -601,6 +644,9 @@ namespace SimpleAlarm
         private System.Windows.Forms.Button button_about;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label_header_message_minute;
+        private System.Windows.Forms.Label label_header_hour;
+        private System.Windows.Forms.Label label_header_minute;
     }
 }
 
