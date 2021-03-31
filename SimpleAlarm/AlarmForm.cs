@@ -602,7 +602,7 @@ namespace SimpleAlarm
         protected override void WndProc(ref Message message)
         {
             base.WndProc(ref message);
-            if (message.Msg == 0x84)
+            if (message.Msg == 0x84 && !FullSized)
             {
                 var cursor = this.PointToClient(Cursor.Position);
 
