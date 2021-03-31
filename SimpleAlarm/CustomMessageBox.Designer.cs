@@ -75,16 +75,17 @@ namespace SimpleAlarm
             // label_message
             // 
             this.label_message.AutoSize = true;
-            this.label_message.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_message.ForeColor = System.Drawing.Color.Black;
-            this.label_message.Location = new System.Drawing.Point(56, 62);
+            this.label_message.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_message.ForeColor = System.Drawing.Color.Red;
+            this.label_message.Location = new System.Drawing.Point(63, 58);
             this.label_message.Name = "label_message";
-            this.label_message.Size = new System.Drawing.Size(65, 16);
+            this.label_message.Size = new System.Drawing.Size(81, 20);
             this.label_message.TabIndex = 2;
             this.label_message.Text = "Message";
             // 
             // button_stop
             // 
+            this.button_stop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_stop.Location = new System.Drawing.Point(59, 204);
             this.button_stop.Name = "button_stop";
             this.button_stop.Size = new System.Drawing.Size(86, 34);
@@ -94,6 +95,7 @@ namespace SimpleAlarm
             // 
             // button_snooze
             // 
+            this.button_snooze.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_snooze.Location = new System.Drawing.Point(281, 204);
             this.button_snooze.Name = "button_snooze";
             this.button_snooze.Size = new System.Drawing.Size(86, 34);
@@ -106,7 +108,7 @@ namespace SimpleAlarm
             this.label_num1.AutoSize = true;
             this.label_num1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_num1.ForeColor = System.Drawing.Color.Black;
-            this.label_num1.Location = new System.Drawing.Point(79, 138);
+            this.label_num1.Location = new System.Drawing.Point(63, 138);
             this.label_num1.Name = "label_num1";
             this.label_num1.Size = new System.Drawing.Size(58, 24);
             this.label_num1.TabIndex = 5;
@@ -117,7 +119,7 @@ namespace SimpleAlarm
             this.label_num2.AutoSize = true;
             this.label_num2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_num2.ForeColor = System.Drawing.Color.Black;
-            this.label_num2.Location = new System.Drawing.Point(186, 138);
+            this.label_num2.Location = new System.Drawing.Point(180, 138);
             this.label_num2.Name = "label_num2";
             this.label_num2.Size = new System.Drawing.Size(58, 24);
             this.label_num2.TabIndex = 6;
@@ -127,7 +129,7 @@ namespace SimpleAlarm
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(146, 138);
+            this.label1.Location = new System.Drawing.Point(134, 138);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(21, 24);
             this.label1.TabIndex = 7;
@@ -137,7 +139,7 @@ namespace SimpleAlarm
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(244, 138);
+            this.label2.Location = new System.Drawing.Point(257, 138);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(21, 24);
             this.label2.TabIndex = 8;
@@ -146,7 +148,7 @@ namespace SimpleAlarm
             // textBox_answer
             // 
             this.textBox_answer.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox_answer.Location = new System.Drawing.Point(281, 135);
+            this.textBox_answer.Location = new System.Drawing.Point(298, 133);
             this.textBox_answer.Name = "textBox_answer";
             this.textBox_answer.Size = new System.Drawing.Size(45, 29);
             this.textBox_answer.TabIndex = 9;

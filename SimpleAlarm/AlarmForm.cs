@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
 using System.Media;
 using System.Runtime.InteropServices;
 
@@ -14,15 +12,12 @@ namespace SimpleAlarm
         private string currentDateTime;
         private string chosenWavFileName = "Default";
         private bool alarmStarted = false;
-        private bool isSoundPlaying = false;
         private SoundPlayer soundPlayer;
-        private CancellationTokenSource cancellationTokenSource;
         private CustomMessageBox myMessageBox;
         private AboutMe myAboutCard;
         private AboutApp appAboutCard;
         private Point currentFormCoordinate;
         private int alarmProcessCounter = 0;
-        private int soundDuration = 29023;
         private const int
             HTLEFT = 10,
             HTRIGHT = 11,
@@ -50,40 +45,20 @@ namespace SimpleAlarm
             InitializeComponent();
         }
 
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
-        {
-
-            if (e.Button == MouseButtons.Left && e.Clicks == 1)
-            {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
-
-            else if(e.Button == MouseButtons.Left && e.Clicks == 2)
-            {
-                if (this.Size == Screen.PrimaryScreen.WorkingArea.Size)
-                {
-                    this.Size = new Size(700, 440);
-                    this.Location = currentFormCoordinate;
-                }
-                else
-                {
-                    this.Size = Screen.PrimaryScreen.WorkingArea.Size;
-                    this.Location = new Point(0, 0);
-                }
-            }
-        }
-
-
         private void InitializeCustomMessageBox()
         {
-            string title = "Get up!";
-            string message = "It is time to get up mate, you'll be late!";
+            string title = "Alarm";
+            string message = textBox_message.Text;
+            if(message.Trim().Length == 0)
+                message = "It is time to get up mate, you'll be late!";
+            
             myMessageBox = new CustomMessageBox();
             myMessageBox.button_stop.Click += MessageBoxButtonStop_Click;
             myMessageBox.button_snooze.Click += MessageBoxButtonSnooze_Click;
-            myMessageBox.setTitle(title);
-            myMessageBox.setMessage(message);
+            myMessageBox.SetTitle(title);
+            myMessageBox.SetMessage(message);
+            myMessageBox.SetExpressionDifficulty(comboBox_difficulty.Text);
+            myMessageBox.SetMainForm(this);
         }
 
 
@@ -99,7 +74,7 @@ namespace SimpleAlarm
 
             radioButton_specify_time.Checked = true;
             targetDateTime = $"{target_date.Text} {target_time.Text}";
-            this.MinimumSize = new Size(650, 400);
+            this.MinimumSize = new Size(690, 450);
             list_music.SelectedIndex = 0;
             buttons =  new Button[]
                     {button_minimize,button_about,
@@ -142,10 +117,24 @@ namespace SimpleAlarm
 
         private void StopProcess() 
         {
+            alarmStarted = false;
             StopAlarm();
             CloseMessageBox();
             ResetAlarmProcessCounter();
             RestoreComponents();
+        }
+
+        private void RefreshHeaderMessage()
+        {
+            if (radioButton_specify_time.Checked)
+            {
+                string time = DateTime.Now.AddMinutes(double.Parse(textBox_snooze.Text)).ToLongTimeString();
+                label_header_message_right.Text = $"{time} {target_date.Text}";
+            }
+            else
+            {
+                label_header_message_minute.Text = textBox_snooze.Text;
+            }
         }
 
         private void MessageBoxButtonStop_Click(object sender, EventArgs e)
@@ -171,6 +160,7 @@ namespace SimpleAlarm
                 CloseMessageBox();
                 StopAlarmMusic();
                 targetDateTime = DateTime.Now.AddMinutes(double.Parse(textBox_snooze.Text)).ToString();
+                RefreshHeaderMessage();
                 StartTargetTimer();
             }
         }
@@ -253,7 +243,7 @@ namespace SimpleAlarm
         {
             alarmStarted = true;
 
-            ChooseAlarmMusic();
+            InitializeSoundPlayer(chosenWavFileName);
             DisableInputComponents();
             ChangeStyleAlarmButton("Stop alarm",Color.Red);
             if (radioButton_specify_time.Checked)
@@ -269,7 +259,7 @@ namespace SimpleAlarm
         {
             alarmStarted = false;
             EnableInputComponents();
-
+            ResetAlarmProcessCounter();
             ChangeStyleAlarmButton("Start alarm", Color.FromArgb(98, 133, 138));
             StopTargetTimer();
         }
@@ -281,38 +271,11 @@ namespace SimpleAlarm
             currentDateTime = DateTime.Now.ToString();
         }
 
-        private async  Task PlayAlarmMusicAsynchronously(int loopCount, CancellationToken cancellationToken)
-        {
-                isSoundPlaying = true;
-               await Task.Run(() =>
-                {
-                    for (int i = 0; i < loopCount; i++)
-                    {
-                        soundPlayer.Play();
-                        Thread.Sleep(soundDuration);
-                        if (cancellationToken.IsCancellationRequested)
-                            break;
-                        if (!isSoundPlaying)
-                            break;
-                    }
-                });
 
-        }
-        private async void PlayAlarmMusic(int times)
-        {
-            cancellationTokenSource = new CancellationTokenSource();
-            await PlayAlarmMusicAsynchronously(times, cancellationTokenSource.Token);
-        }
 
         private void StopAlarmMusic()
         {
-            if(cancellationTokenSource != null)
-            {
-                cancellationTokenSource.Cancel();
-                cancellationTokenSource.Dispose();
-            }
             soundPlayer.Stop();
-            isSoundPlaying = false;
         }
 
         private void timer_target_time_Tick(object sender, EventArgs e)
@@ -320,12 +283,10 @@ namespace SimpleAlarm
             if (this.currentDateTime.Equals(this.targetDateTime) && alarmStarted)
             {
                 StopTargetTimer();
-                PlayAlarmMusic(int.MaxValue);
-
+                PlayAlarmLooping();
                 InitializeCustomMessageBox();
                 myMessageBox.ShowDialog();
             }
-
         }
 
         private void ChangeStatusSpecifyTimeComponents(bool value)
@@ -444,21 +405,23 @@ namespace SimpleAlarm
         private void InitializeSoundPlayer(string wavFileName)
         {
             soundPlayer = new SoundPlayer($"{wavFileName}.wav");
-            this.soundDuration = SoundInfo.GetSoundLength($"{wavFileName}.wav");
         }
 
-        private void ChooseAlarmMusic()
+        private void PlayAlarm()
         {
-            string name = list_music.Text;
-            chosenWavFileName = name;
-            InitializeSoundPlayer(name);
+            soundPlayer.Play();
         }
+        
+        private void PlayAlarmLooping()
+        {
+            soundPlayer.PlayLooping();
+        }
+
         private void button_play_Click(object sender, EventArgs e)
         {
             soundPlayer.Stop();
-            if(!chosenWavFileName.Equals(list_music.Text))
-                ChooseAlarmMusic();
-            soundPlayer.Play();
+            InitializeSoundPlayer(chosenWavFileName);
+            PlayAlarm();
         }
 
         private void button_stop_Click(object sender, EventArgs e)
@@ -473,21 +436,6 @@ namespace SimpleAlarm
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
-
-            //else if (e.Button == MouseButtons.Left && e.Clicks == 2)
-            //{
-            //    if (this.Size == Screen.PrimaryScreen.WorkingArea.Size)
-            //    {
-            //        this.Size = new Size(700, 440);
-            //        //this.CenterToScreen();
-            //        this.Location = currentFormCoordinate;
-            //    }
-            //    else
-            //    {
-            //        this.Size = Screen.PrimaryScreen.WorkingArea.Size;
-            //        this.Location = new Point(0, 0);
-            //    }
-            //}
         }
 
         private void CreateAboutMeCard()
@@ -521,6 +469,15 @@ namespace SimpleAlarm
             label_header_message_minute.Text = from_now_minute.Text;
         }
 
+        private void list_music_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            chosenWavFileName = list_music.Text;
+            int duration = SoundInfo
+                                    .GetSoundLength($"{chosenWavFileName}.wav")
+                                    / 1000;
+            label_duration_value.Text = $"{duration}s";
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             CreateAboutAppCard();
@@ -539,10 +496,9 @@ namespace SimpleAlarm
 
         private void button_minimize_maximize_Click(object sender, EventArgs e)
         {
-
             if (FullSized && IsFormOnZeroZeroCoordinate)
             {
-                this.Size = new Size(700, 440);
+                this.Size = new Size(690, 450);
                 this.Location = currentFormCoordinate;
                 ChangeButtonsLocation(buttons, -5, 3);
             }
@@ -551,7 +507,6 @@ namespace SimpleAlarm
                 this.Size = Screen.PrimaryScreen.WorkingArea.Size;
                 this.Location = new Point(0, 0);
                 ChangeButtonsLocation(buttons, 5, -3);
-                Console.WriteLine(button_close.Location);
             }
         }
 
@@ -560,12 +515,10 @@ namespace SimpleAlarm
         {
             if (FullSized)
             {
-                Console.WriteLine("boyuldu");
                 button_minimize_maximize.Image = SimpleAlarm.Properties.Resources.restore_down;
             }
             else if (IsFormOnZeroZeroCoordinate)
             {
-                Console.WriteLine("kicildi");
                 button_minimize_maximize.Image = SimpleAlarm.Properties.Resources.maximize;
             }
         }

@@ -62,6 +62,12 @@ namespace SimpleAlarm
             this.button_play = new System.Windows.Forms.Button();
             this.button_stop = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label_message = new System.Windows.Forms.Label();
+            this.textBox_message = new System.Windows.Forms.TextBox();
+            this.comboBox_difficulty = new System.Windows.Forms.ComboBox();
+            this.label_difficulty = new System.Windows.Forms.Label();
+            this.label_duration_value = new System.Windows.Forms.Label();
+            this.label_duration = new System.Windows.Forms.Label();
             this.button_about = new System.Windows.Forms.Button();
             this.button_minimize_maximize = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -70,6 +76,7 @@ namespace SimpleAlarm
             this.label_header_message_minute = new System.Windows.Forms.Label();
             this.label_header_hour = new System.Windows.Forms.Label();
             this.label_header_minute = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -90,7 +97,7 @@ namespace SimpleAlarm
             this.radioButton_specify_time.AutoSize = true;
             this.radioButton_specify_time.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButton_specify_time.ForeColor = System.Drawing.Color.Black;
-            this.radioButton_specify_time.Location = new System.Drawing.Point(24, 12);
+            this.radioButton_specify_time.Location = new System.Drawing.Point(24, 15);
             this.radioButton_specify_time.Name = "radioButton_specify_time";
             this.radioButton_specify_time.Size = new System.Drawing.Size(99, 20);
             this.radioButton_specify_time.TabIndex = 4;
@@ -106,7 +113,7 @@ namespace SimpleAlarm
             this.radioButton_from_now.AutoSize = true;
             this.radioButton_from_now.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButton_from_now.ForeColor = System.Drawing.Color.Black;
-            this.radioButton_from_now.Location = new System.Drawing.Point(23, 98);
+            this.radioButton_from_now.Location = new System.Drawing.Point(23, 86);
             this.radioButton_from_now.Name = "radioButton_from_now";
             this.radioButton_from_now.Size = new System.Drawing.Size(84, 20);
             this.radioButton_from_now.TabIndex = 5;
@@ -125,7 +132,7 @@ namespace SimpleAlarm
             this.button_minimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_minimize.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_minimize.ForeColor = System.Drawing.Color.White;
-            this.button_minimize.Location = new System.Drawing.Point(499, 3);
+            this.button_minimize.Location = new System.Drawing.Point(539, 3);
             this.button_minimize.Name = "button_minimize";
             this.button_minimize.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.button_minimize.Size = new System.Drawing.Size(48, 36);
@@ -172,7 +179,7 @@ namespace SimpleAlarm
             this.target_date.CustomFormat = "mm:dd:yyyy";
             this.target_date.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.target_date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.target_date.Location = new System.Drawing.Point(42, 38);
+            this.target_date.Location = new System.Drawing.Point(42, 41);
             this.target_date.Name = "target_date";
             this.target_date.Size = new System.Drawing.Size(126, 24);
             this.target_date.TabIndex = 8;
@@ -183,7 +190,7 @@ namespace SimpleAlarm
             // 
             this.target_time.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.target_time.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.target_time.Location = new System.Drawing.Point(174, 38);
+            this.target_time.Location = new System.Drawing.Point(174, 41);
             this.target_time.Name = "target_time";
             this.target_time.ShowUpDown = true;
             this.target_time.Size = new System.Drawing.Size(101, 24);
@@ -197,7 +204,7 @@ namespace SimpleAlarm
             this.from_now_hour.CustomFormat = "H";
             this.from_now_hour.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.from_now_hour.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.from_now_hour.Location = new System.Drawing.Point(42, 124);
+            this.from_now_hour.Location = new System.Drawing.Point(42, 112);
             this.from_now_hour.Name = "from_now_hour";
             this.from_now_hour.ShowUpDown = true;
             this.from_now_hour.Size = new System.Drawing.Size(65, 24);
@@ -211,7 +218,7 @@ namespace SimpleAlarm
             this.from_now_minute.CustomFormat = "m";
             this.from_now_minute.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.from_now_minute.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.from_now_minute.Location = new System.Drawing.Point(174, 124);
+            this.from_now_minute.Location = new System.Drawing.Point(174, 112);
             this.from_now_minute.MaxDate = new System.DateTime(2021, 3, 28, 12, 59, 0, 0);
             this.from_now_minute.Name = "from_now_minute";
             this.from_now_minute.ShowUpDown = true;
@@ -224,7 +231,7 @@ namespace SimpleAlarm
             // 
             this.label_hour.AutoSize = true;
             this.label_hour.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_hour.Location = new System.Drawing.Point(113, 130);
+            this.label_hour.Location = new System.Drawing.Point(113, 118);
             this.label_hour.Name = "label_hour";
             this.label_hour.Size = new System.Drawing.Size(52, 16);
             this.label_hour.TabIndex = 12;
@@ -234,7 +241,7 @@ namespace SimpleAlarm
             // 
             this.label_minute.AutoSize = true;
             this.label_minute.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_minute.Location = new System.Drawing.Point(233, 131);
+            this.label_minute.Location = new System.Drawing.Point(233, 119);
             this.label_minute.Name = "label_minute";
             this.label_minute.Size = new System.Drawing.Size(62, 16);
             this.label_minute.TabIndex = 13;
@@ -249,7 +256,7 @@ namespace SimpleAlarm
             this.button_start_alarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_start_alarm.ForeColor = System.Drawing.Color.White;
             this.button_start_alarm.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_start_alarm.Location = new System.Drawing.Point(526, 229);
+            this.button_start_alarm.Location = new System.Drawing.Point(571, 283);
             this.button_start_alarm.Name = "button_start_alarm";
             this.button_start_alarm.Size = new System.Drawing.Size(102, 40);
             this.button_start_alarm.TabIndex = 3;
@@ -268,7 +275,7 @@ namespace SimpleAlarm
             this.panel2.Controls.Add(this.label4);
             this.panel2.Location = new System.Drawing.Point(5, 88);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(641, 27);
+            this.panel2.Size = new System.Drawing.Size(681, 27);
             this.panel2.TabIndex = 14;
             // 
             // label6
@@ -295,7 +302,7 @@ namespace SimpleAlarm
             this.label_current_time.AutoSize = true;
             this.label_current_time.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_current_time.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(89)))), ((int)(((byte)(71)))));
-            this.label_current_time.Location = new System.Drawing.Point(497, 3);
+            this.label_current_time.Location = new System.Drawing.Point(537, 3);
             this.label_current_time.Name = "label_current_time";
             this.label_current_time.Size = new System.Drawing.Size(24, 18);
             this.label_current_time.TabIndex = 1;
@@ -314,7 +321,7 @@ namespace SimpleAlarm
             // label5
             // 
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label5.Location = new System.Drawing.Point(301, -2);
+            this.label5.Location = new System.Drawing.Point(301, -13);
             this.label5.Margin = new System.Windows.Forms.Padding(0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(1, 2000);
@@ -324,7 +331,7 @@ namespace SimpleAlarm
             // 
             this.label_call.AutoSize = true;
             this.label_call.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_call.Location = new System.Drawing.Point(308, 14);
+            this.label_call.Location = new System.Drawing.Point(309, 15);
             this.label_call.Name = "label_call";
             this.label_call.Size = new System.Drawing.Size(33, 18);
             this.label_call.TabIndex = 17;
@@ -334,7 +341,7 @@ namespace SimpleAlarm
             // 
             this.label_call_time.AutoSize = true;
             this.label_call_time.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_call_time.Location = new System.Drawing.Point(406, 43);
+            this.label_call_time.Location = new System.Drawing.Point(371, 47);
             this.label_call_time.Name = "label_call_time";
             this.label_call_time.Size = new System.Drawing.Size(59, 18);
             this.label_call_time.TabIndex = 18;
@@ -346,7 +353,7 @@ namespace SimpleAlarm
             this.textBox_times.CustomFormat = "m";
             this.textBox_times.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox_times.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.textBox_times.Location = new System.Drawing.Point(347, 38);
+            this.textBox_times.Location = new System.Drawing.Point(311, 41);
             this.textBox_times.MaxDate = new System.DateTime(2021, 3, 28, 12, 59, 0, 0);
             this.textBox_times.Name = "textBox_times";
             this.textBox_times.ShowUpDown = true;
@@ -360,7 +367,7 @@ namespace SimpleAlarm
             this.textBox_snooze.CustomFormat = "m";
             this.textBox_snooze.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox_snooze.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.textBox_snooze.Location = new System.Drawing.Point(347, 118);
+            this.textBox_snooze.Location = new System.Drawing.Point(312, 110);
             this.textBox_snooze.MaxDate = new System.DateTime(2021, 3, 28, 12, 59, 0, 0);
             this.textBox_snooze.Name = "textBox_snooze";
             this.textBox_snooze.ShowUpDown = true;
@@ -372,7 +379,7 @@ namespace SimpleAlarm
             // 
             this.label_call_minute.AutoSize = true;
             this.label_call_minute.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_call_minute.Location = new System.Drawing.Point(406, 123);
+            this.label_call_minute.Location = new System.Drawing.Point(371, 117);
             this.label_call_minute.Name = "label_call_minute";
             this.label_call_minute.Size = new System.Drawing.Size(70, 18);
             this.label_call_minute.TabIndex = 21;
@@ -382,7 +389,7 @@ namespace SimpleAlarm
             // 
             this.label_snooze.AutoSize = true;
             this.label_snooze.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_snooze.Location = new System.Drawing.Point(305, 91);
+            this.label_snooze.Location = new System.Drawing.Point(308, 86);
             this.label_snooze.Name = "label_snooze";
             this.label_snooze.Size = new System.Drawing.Size(60, 18);
             this.label_snooze.TabIndex = 22;
@@ -397,14 +404,15 @@ namespace SimpleAlarm
             "Soft Alarm 1",
             "Soft Alarm 2",
             "Soft Alarm 3"});
-            this.list_music.Location = new System.Drawing.Point(24, 188);
+            this.list_music.Location = new System.Drawing.Point(40, 176);
             this.list_music.Name = "list_music";
-            this.list_music.Size = new System.Drawing.Size(130, 26);
+            this.list_music.Size = new System.Drawing.Size(151, 26);
             this.list_music.TabIndex = 23;
+            this.list_music.SelectedIndexChanged += new System.EventHandler(this.list_music_SelectedIndexChanged);
             // 
             // button_play
             // 
-            this.button_play.Location = new System.Drawing.Point(192, 169);
+            this.button_play.Location = new System.Drawing.Point(40, 240);
             this.button_play.Name = "button_play";
             this.button_play.Size = new System.Drawing.Size(83, 26);
             this.button_play.TabIndex = 24;
@@ -414,7 +422,7 @@ namespace SimpleAlarm
             // 
             // button_stop
             // 
-            this.button_stop.Location = new System.Drawing.Point(192, 212);
+            this.button_stop.Location = new System.Drawing.Point(152, 240);
             this.button_stop.Name = "button_stop";
             this.button_stop.Size = new System.Drawing.Size(83, 26);
             this.button_stop.TabIndex = 25;
@@ -428,6 +436,13 @@ namespace SimpleAlarm
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.label_message);
+            this.panel3.Controls.Add(this.textBox_message);
+            this.panel3.Controls.Add(this.comboBox_difficulty);
+            this.panel3.Controls.Add(this.label_difficulty);
+            this.panel3.Controls.Add(this.label_duration_value);
+            this.panel3.Controls.Add(this.label_duration);
             this.panel3.Controls.Add(this.button_play);
             this.panel3.Controls.Add(this.radioButton_specify_time);
             this.panel3.Controls.Add(this.button_stop);
@@ -449,8 +464,70 @@ namespace SimpleAlarm
             this.panel3.Controls.Add(this.label_call);
             this.panel3.Location = new System.Drawing.Point(5, 115);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(641, 280);
+            this.panel3.Size = new System.Drawing.Size(681, 330);
             this.panel3.TabIndex = 27;
+            // 
+            // label_message
+            // 
+            this.label_message.AutoSize = true;
+            this.label_message.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_message.Location = new System.Drawing.Point(308, 217);
+            this.label_message.Name = "label_message";
+            this.label_message.Size = new System.Drawing.Size(135, 18);
+            this.label_message.TabIndex = 31;
+            this.label_message.Text = "Message (optional)";
+            // 
+            // textBox_message
+            // 
+            this.textBox_message.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_message.Location = new System.Drawing.Point(311, 242);
+            this.textBox_message.Name = "textBox_message";
+            this.textBox_message.Size = new System.Drawing.Size(251, 24);
+            this.textBox_message.TabIndex = 30;
+            // 
+            // comboBox_difficulty
+            // 
+            this.comboBox_difficulty.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox_difficulty.FormattingEnabled = true;
+            this.comboBox_difficulty.Items.AddRange(new object[] {
+            "Easy",
+            "Medium",
+            "Hard"});
+            this.comboBox_difficulty.Location = new System.Drawing.Point(312, 176);
+            this.comboBox_difficulty.Name = "comboBox_difficulty";
+            this.comboBox_difficulty.Size = new System.Drawing.Size(87, 26);
+            this.comboBox_difficulty.TabIndex = 29;
+            this.comboBox_difficulty.Text = "Easy";
+            // 
+            // label_difficulty
+            // 
+            this.label_difficulty.AutoSize = true;
+            this.label_difficulty.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_difficulty.Location = new System.Drawing.Point(308, 149);
+            this.label_difficulty.Name = "label_difficulty";
+            this.label_difficulty.Size = new System.Drawing.Size(156, 18);
+            this.label_difficulty.TabIndex = 28;
+            this.label_difficulty.Text = "Difficulty of expression";
+            // 
+            // label_duration_value
+            // 
+            this.label_duration_value.AutoSize = true;
+            this.label_duration_value.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_duration_value.Location = new System.Drawing.Point(96, 205);
+            this.label_duration_value.Name = "label_duration_value";
+            this.label_duration_value.Size = new System.Drawing.Size(27, 13);
+            this.label_duration_value.TabIndex = 27;
+            this.label_duration_value.Text = "29 s";
+            // 
+            // label_duration
+            // 
+            this.label_duration.AutoSize = true;
+            this.label_duration.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_duration.Location = new System.Drawing.Point(40, 205);
+            this.label_duration.Name = "label_duration";
+            this.label_duration.Size = new System.Drawing.Size(50, 13);
+            this.label_duration.TabIndex = 26;
+            this.label_duration.Text = "Duration:";
             // 
             // button_about
             // 
@@ -461,7 +538,7 @@ namespace SimpleAlarm
             this.button_about.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_about.ForeColor = System.Drawing.Color.White;
             this.button_about.Image = ((System.Drawing.Image)(resources.GetObject("button_about.Image")));
-            this.button_about.Location = new System.Drawing.Point(450, 3);
+            this.button_about.Location = new System.Drawing.Point(490, 3);
             this.button_about.Name = "button_about";
             this.button_about.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.button_about.Size = new System.Drawing.Size(48, 36);
@@ -478,7 +555,7 @@ namespace SimpleAlarm
             this.button_minimize_maximize.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_minimize_maximize.ForeColor = System.Drawing.Color.White;
             this.button_minimize_maximize.Image = ((System.Drawing.Image)(resources.GetObject("button_minimize_maximize.Image")));
-            this.button_minimize_maximize.Location = new System.Drawing.Point(548, 3);
+            this.button_minimize_maximize.Location = new System.Drawing.Point(588, 3);
             this.button_minimize_maximize.Name = "button_minimize_maximize";
             this.button_minimize_maximize.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.button_minimize_maximize.Size = new System.Drawing.Size(48, 36);
@@ -506,7 +583,7 @@ namespace SimpleAlarm
             this.button_close.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_close.ForeColor = System.Drawing.Color.White;
             this.button_close.Image = global::SimpleAlarm.Properties.Resources.close;
-            this.button_close.Location = new System.Drawing.Point(597, 3);
+            this.button_close.Location = new System.Drawing.Point(637, 3);
             this.button_close.Name = "button_close";
             this.button_close.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.button_close.Size = new System.Drawing.Size(48, 36);
@@ -523,7 +600,7 @@ namespace SimpleAlarm
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Image = global::SimpleAlarm.Properties.Resources.info;
-            this.button1.Location = new System.Drawing.Point(401, 3);
+            this.button1.Location = new System.Drawing.Point(441, 3);
             this.button1.Name = "button1";
             this.button1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.button1.Size = new System.Drawing.Size(48, 36);
@@ -567,12 +644,22 @@ namespace SimpleAlarm
             this.label_header_minute.Text = "minute(s).";
             this.label_header_minute.Visible = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(39, 149);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 18);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "Music";
+            // 
             // SmartAlarm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(89)))), ((int)(((byte)(71)))));
-            this.ClientSize = new System.Drawing.Size(650, 400);
+            this.ClientSize = new System.Drawing.Size(690, 450);
             this.Controls.Add(this.label_header_minute);
             this.Controls.Add(this.label_header_hour);
             this.Controls.Add(this.label_header_message_minute);
@@ -647,6 +734,13 @@ namespace SimpleAlarm
         private System.Windows.Forms.Label label_header_message_minute;
         private System.Windows.Forms.Label label_header_hour;
         private System.Windows.Forms.Label label_header_minute;
+        private System.Windows.Forms.Label label_duration;
+        private System.Windows.Forms.Label label_duration_value;
+        private System.Windows.Forms.Label label_difficulty;
+        private System.Windows.Forms.ComboBox comboBox_difficulty;
+        private System.Windows.Forms.Label label_message;
+        private System.Windows.Forms.TextBox textBox_message;
+        private System.Windows.Forms.Label label1;
     }
 }
 
