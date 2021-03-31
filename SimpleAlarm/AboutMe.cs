@@ -55,8 +55,7 @@ namespace SimpleAlarm
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            // TODO: add github repo
-            Process.Start("https://www.youtube.com/");
+            Process.Start("https://github.com/mahammadverdiyev/SimpleAlarm");
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)

@@ -125,7 +125,7 @@ namespace SimpleAlarm
             this.button_minimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_minimize.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_minimize.ForeColor = System.Drawing.Color.White;
-            this.button_minimize.Location = new System.Drawing.Point(549, 3);
+            this.button_minimize.Location = new System.Drawing.Point(499, 3);
             this.button_minimize.Name = "button_minimize";
             this.button_minimize.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.button_minimize.Size = new System.Drawing.Size(48, 36);
@@ -249,7 +249,7 @@ namespace SimpleAlarm
             this.button_start_alarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_start_alarm.ForeColor = System.Drawing.Color.White;
             this.button_start_alarm.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_start_alarm.Location = new System.Drawing.Point(576, 269);
+            this.button_start_alarm.Location = new System.Drawing.Point(526, 229);
             this.button_start_alarm.Name = "button_start_alarm";
             this.button_start_alarm.Size = new System.Drawing.Size(102, 40);
             this.button_start_alarm.TabIndex = 3;
@@ -268,7 +268,7 @@ namespace SimpleAlarm
             this.panel2.Controls.Add(this.label4);
             this.panel2.Location = new System.Drawing.Point(5, 88);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(691, 27);
+            this.panel2.Size = new System.Drawing.Size(641, 27);
             this.panel2.TabIndex = 14;
             // 
             // label6
@@ -295,7 +295,7 @@ namespace SimpleAlarm
             this.label_current_time.AutoSize = true;
             this.label_current_time.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_current_time.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(89)))), ((int)(((byte)(71)))));
-            this.label_current_time.Location = new System.Drawing.Point(547, 3);
+            this.label_current_time.Location = new System.Drawing.Point(497, 3);
             this.label_current_time.Name = "label_current_time";
             this.label_current_time.Size = new System.Drawing.Size(24, 18);
             this.label_current_time.TabIndex = 1;
@@ -449,7 +449,7 @@ namespace SimpleAlarm
             this.panel3.Controls.Add(this.label_call);
             this.panel3.Location = new System.Drawing.Point(5, 115);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(691, 320);
+            this.panel3.Size = new System.Drawing.Size(641, 280);
             this.panel3.TabIndex = 27;
             // 
             // button_about
@@ -461,7 +461,7 @@ namespace SimpleAlarm
             this.button_about.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_about.ForeColor = System.Drawing.Color.White;
             this.button_about.Image = ((System.Drawing.Image)(resources.GetObject("button_about.Image")));
-            this.button_about.Location = new System.Drawing.Point(500, 3);
+            this.button_about.Location = new System.Drawing.Point(450, 3);
             this.button_about.Name = "button_about";
             this.button_about.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.button_about.Size = new System.Drawing.Size(48, 36);
@@ -478,7 +478,7 @@ namespace SimpleAlarm
             this.button_minimize_maximize.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_minimize_maximize.ForeColor = System.Drawing.Color.White;
             this.button_minimize_maximize.Image = ((System.Drawing.Image)(resources.GetObject("button_minimize_maximize.Image")));
-            this.button_minimize_maximize.Location = new System.Drawing.Point(598, 3);
+            this.button_minimize_maximize.Location = new System.Drawing.Point(548, 3);
             this.button_minimize_maximize.Name = "button_minimize_maximize";
             this.button_minimize_maximize.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.button_minimize_maximize.Size = new System.Drawing.Size(48, 36);
@@ -506,7 +506,7 @@ namespace SimpleAlarm
             this.button_close.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_close.ForeColor = System.Drawing.Color.White;
             this.button_close.Image = global::SimpleAlarm.Properties.Resources.close;
-            this.button_close.Location = new System.Drawing.Point(647, 3);
+            this.button_close.Location = new System.Drawing.Point(597, 3);
             this.button_close.Name = "button_close";
             this.button_close.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.button_close.Size = new System.Drawing.Size(48, 36);
@@ -523,7 +523,7 @@ namespace SimpleAlarm
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Image = global::SimpleAlarm.Properties.Resources.info;
-            this.button1.Location = new System.Drawing.Point(451, 3);
+            this.button1.Location = new System.Drawing.Point(401, 3);
             this.button1.Name = "button1";
             this.button1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.button1.Size = new System.Drawing.Size(48, 36);
@@ -572,7 +572,7 @@ namespace SimpleAlarm
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(89)))), ((int)(((byte)(71)))));
-            this.ClientSize = new System.Drawing.Size(700, 440);
+            this.ClientSize = new System.Drawing.Size(650, 400);
             this.Controls.Add(this.label_header_minute);
             this.Controls.Add(this.label_header_hour);
             this.Controls.Add(this.label_header_message_minute);

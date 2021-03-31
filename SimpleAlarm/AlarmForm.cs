@@ -100,9 +100,8 @@ namespace SimpleAlarm
             radioButton_specify_time.Checked = true;
             targetDateTime = $"{target_date.Text} {target_time.Text}";
             this.MinimumSize = new Size(650, 400);
-            this.Size = new Size(750, 400);
             list_music.SelectedIndex = 0;
-           buttons =  new Button[]
+            buttons =  new Button[]
                     {button_minimize,button_about,
                     button_minimize_maximize,button_close};
             currentFormCoordinate = this.Location;
