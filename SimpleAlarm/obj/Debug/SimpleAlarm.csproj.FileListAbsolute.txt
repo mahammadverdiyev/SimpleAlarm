@@ -11,3 +11,16 @@ C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.exe
 C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.pdb
 C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.AboutApp.resources
 C:\Users\Muhammad\source\repos\SimpleAlarm\SimpleAlarm\obj\Debug\SimpleAlarm.AboutMe.resources
+C:\Users\elnur\OneDrive\Desktop\SimpleAlarm-master\SimpleAlarm\bin\Debug\SimpleAlarm.exe.config
+C:\Users\elnur\OneDrive\Desktop\SimpleAlarm-master\SimpleAlarm\bin\Debug\SimpleAlarm.exe
+C:\Users\elnur\OneDrive\Desktop\SimpleAlarm-master\SimpleAlarm\bin\Debug\SimpleAlarm.pdb
+C:\Users\elnur\OneDrive\Desktop\SimpleAlarm-master\SimpleAlarm\obj\Debug\SimpleAlarm.csprojAssemblyReference.cache
+C:\Users\elnur\OneDrive\Desktop\SimpleAlarm-master\SimpleAlarm\obj\Debug\SimpleAlarm.AboutApp.resources
+C:\Users\elnur\OneDrive\Desktop\SimpleAlarm-master\SimpleAlarm\obj\Debug\SimpleAlarm.AboutMe.resources
+C:\Users\elnur\OneDrive\Desktop\SimpleAlarm-master\SimpleAlarm\obj\Debug\SimpleAlarm.SmartAlarm.resources
+C:\Users\elnur\OneDrive\Desktop\SimpleAlarm-master\SimpleAlarm\obj\Debug\SimpleAlarm.Properties.Resources.resources
+C:\Users\elnur\OneDrive\Desktop\SimpleAlarm-master\SimpleAlarm\obj\Debug\SimpleAlarm.csproj.GenerateResource.cache
+C:\Users\elnur\OneDrive\Desktop\SimpleAlarm-master\SimpleAlarm\obj\Debug\SimpleAlarm.csproj.CoreCompileInputs.cache
+C:\Users\elnur\OneDrive\Desktop\SimpleAlarm-master\SimpleAlarm\obj\Debug\SimpleAlarm.exe
+C:\Users\elnur\OneDrive\Desktop\SimpleAlarm-master\SimpleAlarm\obj\Debug\SimpleAlarm.pdb
+C:\Users\elnur\OneDrive\Desktop\SimpleAlarm-master\SimpleAlarm\obj\Debug\SimpleAlarm.AlarmRingScreen.resources
